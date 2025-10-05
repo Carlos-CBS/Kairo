@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Kario.Exceptions.ResourceAlreadyExistsException;
 import com.Kario.config.JwtService;
 import com.Kario.user.Role;
 import com.Kario.user.User;
@@ -26,6 +27,11 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new ResourceAlreadyExistsException("Email already in used");
+        }
+
         var user = User.builder()
         .name(request.getName())
         .email(request.getEmail())
@@ -45,12 +51,14 @@ public class AuthService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
         request.getEmail(), request.getPassword()
     ));
 
     var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
     user.setRole(Role.USER);
+    
 
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder()

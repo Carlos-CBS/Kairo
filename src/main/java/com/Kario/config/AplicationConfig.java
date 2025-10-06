@@ -1,5 +1,7 @@
 package com.Kario.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.Kario.user.Role;
+import com.Kario.user.User;
 import com.Kario.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -44,6 +48,30 @@ public class AplicationConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Value("${ADMIN_PASSWORD}")
+    private String password;
+
+    @Value("${ADMIN_EMAIL}")
+    private String email;
+
+    @Bean
+    public CommandLineRunner createDefaultUser() {
+        return args -> {
+            if (userRepository.findByEmail("admin@kario.com").isEmpty()) {
+                
+                String pass = new BCryptPasswordEncoder().encode(password);
+
+                User admin = User.builder()
+                        .name("Admin")
+                        .email(email)
+                        .password(pass)
+                        .role(Role.ADMIN)
+                        .build();
+                userRepository.save(admin);
+            }
+        };
     }
 }
  

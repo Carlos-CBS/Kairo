@@ -1,5 +1,7 @@
 package com.Kario.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,9 +25,9 @@ public class SecurityConfiguration {
         return http
             .cors(cors -> cors.configurationSource(request -> {
             var corsConfig = new org.springframework.web.cors.CorsConfiguration();
-            corsConfig.setAllowedOrigins(java.util.List.of("http://localhost:4200"));
-            corsConfig.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            corsConfig.setAllowedHeaders(java.util.List.of("*"));
+            corsConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+            corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            corsConfig.setAllowedHeaders(List.of("*"));
             corsConfig.setAllowCredentials(true);
             return corsConfig;
         }))
@@ -33,7 +35,8 @@ public class SecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/api/profile").hasAuthority("USER")
+                .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
             )
 
             .sessionManagement(session -> session

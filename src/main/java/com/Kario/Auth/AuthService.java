@@ -1,8 +1,5 @@
 package com.Kario.Auth;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,10 +38,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getRole().name());
-
-        var jwtToken = jwtService.generateToken(extraClaims ,user);
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
         .token(jwtToken)
         .build();
@@ -57,9 +51,7 @@ public class AuthService {
     ));
 
     var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-    user.setRole(Role.USER);
     
-
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder()
     .token(jwtToken).build();    

@@ -1,7 +1,13 @@
-package com.Kario.Auth;
+package com.Kario.Controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.Kario.DTOs.Auth_RegisterUser.AuthenticationRequest;
+import com.Kario.DTOs.Auth_RegisterUser.AuthenticationResponse;
+import com.Kario.DTOs.Auth_RegisterUser.RegisterRequest;
+import com.Kario.Services.Auth.AuthService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

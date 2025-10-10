@@ -1,15 +1,17 @@
-package com.Kario.Auth;
+package com.Kario.Services.Auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Kario.DTOs.Auth_RegisterUser.AuthenticationRequest;
+import com.Kario.DTOs.Auth_RegisterUser.AuthenticationResponse;
+import com.Kario.DTOs.Auth_RegisterUser.RegisterRequest;
 import com.Kario.Exceptions.ResourceAlreadyExistsException;
-import com.Kario.config.JwtService;
-import com.Kario.user.Role;
-import com.Kario.user.User;
-import com.Kario.user.UserRepository;
+import com.Kario.Models.User;
+import com.Kario.Models.Enums.Role;
+import com.Kario.Repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

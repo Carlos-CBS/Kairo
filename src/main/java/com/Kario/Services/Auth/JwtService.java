@@ -1,4 +1,4 @@
-package com.Kario.config;
+package com.Kario.Services.Auth;
 
 import java.security.Key;
 import java.util.Date;

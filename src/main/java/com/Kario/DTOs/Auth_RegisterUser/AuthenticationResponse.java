@@ -1,4 +1,4 @@
-package com.Kario.Auth;
+package com.Kario.DTOs.Auth_RegisterUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
+@NoArgsConstructor
+public class AuthenticationResponse {
 
-    private String email;
-    private String password;
+    private String token;
 }

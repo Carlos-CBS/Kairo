@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.Kario.user.Role;
-import com.Kario.user.User;
-import com.Kario.user.UserRepository;
+import com.Kario.Models.User;
+import com.Kario.Models.Enums.Role;
+import com.Kario.Repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

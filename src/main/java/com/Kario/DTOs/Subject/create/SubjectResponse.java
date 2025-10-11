@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CreateResponse {
+public class SubjectResponse {
     
     private Integer id;
     private String name;

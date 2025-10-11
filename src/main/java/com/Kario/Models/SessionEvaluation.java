@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.Kario.Models.Enums.DistractionType;
+import com.Kario.Models.Enums.EvaluationTiming;
 import com.Kario.Models.Enums.MoodLevel;
 import com.Kario.Models.Enums.StudyEnvironment;
 import com.Kario.Models.Enums.GoalCompletion;
@@ -19,11 +20,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class SessionEvaluation {
  
@@ -33,26 +38,20 @@ public class SessionEvaluation {
 
 // Main metrics
     @NotNull
-    private Integer ConcentrationLevel;
+    private Integer concentrationLevel;
 
     @NotNull
     private Integer energyLevel;
-
-    @NotNull
-    private boolean goalAchived;
 
     @Enumerated(EnumType.STRING)
     private GoalCompletion GoalCompletion;
 
 // Distraction metrics
-    private Integer distractionCounts;
-
-    @Enumerated(EnumType.STRING)
-    private DistractionType distraction;
+    private Integer distractionCount;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private Set<DistractionType> allDistractions;
+    private Set<DistractionType> distractions;
     
     @Enumerated(EnumType.STRING)
     private MoodLevel mood;
@@ -69,12 +68,16 @@ public class SessionEvaluation {
     @Enumerated(EnumType.STRING)
     private StudyEnvironment environment;
     
-    private Boolean musicUsed;                  // usó música?
+    private Boolean musicUsed;                  // did he use music?
     private String musicType;                   // "lofi", "classical"
     
 // Timing
     private LocalDateTime evaluatedAt;
-    private Integer evaluationDelay;            // minutos entre fin y evaluación
+    private Integer evaluationDelay;            // Minutes between the end and the evaluation
+
+    @Enumerated(EnumType.STRING)
+    private EvaluationTiming timing;
+    private Double reliabilityScore;
     
 // Relationships
     @OneToOne

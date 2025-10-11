@@ -18,11 +18,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class StudySession {
     
@@ -46,15 +50,15 @@ public class StudySession {
     private Integer actualDuration;
 
 // Pomodoro specific
-    private Integer workBlocks;                 // bloques planeados
-    private Integer completedBlocks;            // bloques completados
-    private Integer breaksTaken;                // descansos tomados
-    private Integer breaksSkipped;              // descansos saltados
+    private Integer workBlocks;                 // Planned blocks
+    private Integer completedBlocks;           
+    private Integer breaksTaken;               
+    private Integer breaksSkipped;            
     
 // Distractions
-    private Integer pauseCount;                 // pausas
-    private Integer pauseTotalTime;             // tiempo total en pausa
-    private Integer distractionCount;           // distracciones
+    private Integer pauseCount;            
+    private Integer pauseTotalTime;    
+    private Integer distractionCount;
     
 // Status
     @Enumerated(EnumType.STRING)
@@ -64,12 +68,12 @@ public class StudySession {
     
 // Effectiveness
     private Double productivityRatio;           // productivity time / total time
-    private Boolean methodFollowed;             // siguió la técnica?
-    private Integer methodDeviations;           // desviaciones del método    
+    private Boolean methodFollowed;            
+    private Integer methodDeviations;              
 
 // Task integration
-    private Boolean taskCompleted;              // completó la task?
-    private Integer taskProgress;               // % progreso (0-100)
+    private Boolean taskCompleted;             
+    private Integer taskProgress;           
     
 // Pre-calculated for analytics (performance)
     private Integer hour;                       // 9, 10, 11...
